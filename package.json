@@ -1,0 +1,33 @@
+{
+  "name": "react-workshop-2018",
+  "version": "0.0.0",
+  "description": "React Workshop 2018",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Temoto-kun/react-workshop-2018.git"
+  },
+  "author": "Allan Crisostomo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Temoto-kun/react-workshop-2018/issues"
+  },
+  "homepage": "https://github.com/Temoto-kun/react-workshop-2018#readme",
+  "devDependencies": {
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.11",
+    "file-loader": "^1.1.11",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.20.3",
+    "webpack": "^4.5.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "react": "^16.3.1"
+  }
+}
