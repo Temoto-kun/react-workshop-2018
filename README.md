@@ -6,4 +6,4 @@
 
 ## License
 
-MIT. See the License file for details.
+MIT. See the [LICENSE](https://github.com/Temoto-kun/react-workshop-2018/blob/master/LICENSE) file for details.
