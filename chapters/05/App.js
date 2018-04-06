@@ -1,281 +1,144 @@
 import React from 'react';
-import BIRD_SRC from '../02/assets/bird.jpeg';
-import LIZARD_SRC from '../02/assets/lizard.png';
-import PEACH_SRC from '../02/assets/peach.png';
-import RABBIT_SRC from '../02/assets/rabbit.png';
+import LOSS_1 from './assets/loss-1.png';
+import LOSS_2 from './assets/loss-2.png';
+import LOSS_3 from './assets/loss-3.jpg';
+import LOSS_4 from './assets/loss-4.jpg';
+import NOT_LOSS_1 from './assets/not-loss-1.jpg';
+import NOT_LOSS_2 from './assets/not-loss-2.jpg';
+import NOT_LOSS_3 from './assets/not-loss-3.jpg';
 
-const IMAGES = [
+const MEMES = [
 	{
-		src: BIRD_SRC,
-		caption: 'Bird',
+		src: LOSS_1,
+		isLoss: true,
 	},
 	{
-		src: LIZARD_SRC,
-		caption: 'Lizard',
+		src: NOT_LOSS_1,
+		isLoss: false,
 	},
 	{
-		src: PEACH_SRC,
-		caption: 'Peach',
+		src: NOT_LOSS_2,
+		isLoss: false,
 	},
 	{
-		src: RABBIT_SRC,
-		caption: 'Rabbit',
-	}
+		src: LOSS_4,
+		isLoss: true,
+	},
+	{
+		src: LOSS_2,
+		isLoss: true,
+	},
+	{
+		src: LOSS_3,
+		isLoss: true,
+	},
+
+	{
+		src: NOT_LOSS_3,
+		isLoss: false,
+	},
 ];
 
-function filterRegistrants(registrants, query) {
-	query = query.toLowerCase();
-
-	if (query.trim().length < 1) {
-		return registrants;
-	}
-
-	return registrants.filter(registrant => (
-		registrant.name.toLowerCase().includes(query) ||
-			registrant.email.toLowerCase().includes(query) ||
-			registrant.phone.toLowerCase().includes(query)
-	));
-}
-
-function TextBox({ id, name, label, type = 'text', value, onChange }) {
-	return (
-		<React.Fragment>
-			<label htmlFor={id}>{label}</label>
-			<input
-				id={id}
-				name={name}
-				value={value}
-				className="form-control"
-				onChange={ (e) => {
-					onChange({ name, value: e.target.value });
-				} }
-				placeholder={label}
-				type={type}
-			/>
-		</React.Fragment>
-	)
-}
-
-function RegistrantList({ onSearch, query, registrants, selectedRegistrant, onFieldChange, onSelect }) {
-	return (
-		<React.Fragment>
-			<form className="mb-3" onSubmit={ onSearch }>
-				<div className="card">
-					<div className="card-header">
-						<h2 className="card-title">Search</h2>
-					</div>
-					<div className="card-body">
-						<TextBox id="query" name="query" value={ query } label="Query" onChange={ onFieldChange }/>
-					</div>
-				</div>
-			</form>
-			{
-				registrants.length > 0 ?
-					<div className="card-columns">
-						{
-							registrants.map(registrant => (
-								<div
-									className={ selectedRegistrant && registrant.id === selectedRegistrant.id ? 'card border-primary' : 'card' }
-									key={registrant.id}
-									onClick={ () => { onSelect(registrant) } }
-								>
-									<img src={ registrant.image } alt={ registrant.name } className="card-img-top"/>
-									<div className="card-body">
-										<div className="card-title">
-											{ registrant.name }
-										</div>
-										<div className="card-text">
-											<small>
-												<dl>
-													<dt>Email</dt>
-													<dd>{ registrant.email }</dd>
-													<dt>Phone Number</dt>
-													<dd>{ registrant.phone }</dd>
-												</dl>
-											</small>
-										</div>
-									</div>
-								</div>
-							))
-						}
-					</div> :
-					<div className="text-center p-5">
-						<p>No registrants found.</p>
-					</div>
-			}
-		</React.Fragment>
-	)
-}
-
-function ImageSelector({ images, name, label, id, value, onChange }) {
-	return (
-		<React.Fragment>
-			<label htmlFor={ id }>{ label }</label>
-			{
-				images.map(image => (
-					<label id={ id } key={ image.src }>
-						<figure className={ value === image.src ? 'card position-relative border-primary' : 'card position-relative' }>
-							<img className="card-img" src={image.src} alt={image.caption}/>
-							<input type="radio" name={name} checked={ value === image.src } className="position-absolute"
-										 onClick={ () => onChange({ name, value: image.src }) }
-										 style={{ top: 15, right: 15 }}/>
-						</figure>
-					</label>
-				))
-			}
-		</React.Fragment>
-	);
-}
-
-function RegistrationForm({ images, name, mode, email, phone, image, onFieldChange, onDelete, onSubmit }) {
-	const isEdit = mode === 'edit';
-	return (
-		<form onSubmit={ onSubmit }>
-			<div className="card">
-				<div className="card-header">
-					<h2 className="card-title">{ isEdit ? 'Edit Existing Registrant' : 'Add New Registrant' }</h2>
-				</div>
-				<div className="card-body">
-					<div className="form-group">
-						<TextBox id="name" name="name" value={ name } onChange={ onFieldChange } label="Name" />
-					</div>
-					<div className="form-group">
-						<TextBox id="email" name="email" value={ email } onChange={ onFieldChange } label="Email" type="email" />
-					</div>
-					<div className="form-group">
-						<TextBox id="phone" name="phone" value={ phone } onChange={ onFieldChange } label="Phone number" type="tel" />
-					</div>
-					<ImageSelector id="image" name="image" label="Image" onChange={ onFieldChange } images={ images } value={ image }/>
-				</div>
-				<div className="card-footer text-right">
-					{ isEdit && <button className="btn btn-danger" type="reset" onClick={ onDelete }>Delete</button> }
-					{ ' ' }
-					<button className="btn btn-primary" type="submit">{ isEdit ? 'Update' : 'Add' }</button>
-				</div>
-			</div>
-		</form>
-	);
-}
-
-class Registration extends React.Component {
-	constructor() {
+class MemeWrapper extends React.Component {
+	constructor({ memes }) {
 		super();
 		this.state = {
-			registrants: [],
-			mode: 'add',
-			add: {
-				id: 1,
-				name: '',
-				email: '',
-				phone: '',
-				image: '',
-			},
-			edit: null,
-			query: ''
+			memes,
 		};
-		this.commitRegistrant = this.commitRegistrant.bind(this);
-		this.deleteRegistrant = this.deleteRegistrant.bind(this);
-		this.handleFieldChange = this.handleFieldChange.bind(this);
-		this.handleRegistrantSelect = this.handleRegistrantSelect.bind(this);
+		this.answer = this.answer.bind(this);
 	}
 
-	commitRegistrant(e) {
-		e.preventDefault();
-		this.setState(({ registrants, mode, ...state }) => {
-			let modifiedRegistrants;
-			let newRegistrant = state[mode];
-
-			switch (mode) {
-				case 'add':
-					modifiedRegistrants = [ ...registrants, newRegistrant ];
-					break;
-				case 'edit':
-					modifiedRegistrants = registrants
-						.map(registrant => (registrant.id === newRegistrant.id ? newRegistrant : registrant));
-					break;
-				default:
-					throw new Error(`Unknown mode ${ mode }`);
-			}
-			return {
-				registrants: modifiedRegistrants,
-				[mode]: (
-					mode === 'add' ?
-					{
-						id: state[mode].id + 1,
-						name: '',
-						email: '',
-						phone: '',
-						image: '',
-					} : null
-				),
-				mode: 'add'
-			};
-		});
-	}
-
-	deleteRegistrant(e) {
-		e.preventDefault();
-		this.setState(({ registrants, edit }) => {
-			let modifiedRegistrants;
-
-			modifiedRegistrants = registrants.filter(registrant => registrant.id !== edit.id);
-			return {
-				registrants: modifiedRegistrants,
-				mode: 'add',
-				edit: null,
-			};
-		})
-	}
-
-	handleFieldChange(field) {
-		this.setState(({ mode, ...state }) => ({
-			[mode]: {
-				...state[mode],
-				[field.name]: field.value,
-			},
+	answer({ src, answer }) {
+		this.setState(({ memes }) => ({
+			memes: memes.map(meme => (
+				src !== meme.src ? ({ ...meme, lastAnswered: false }) : ({ ...meme, answer, lastAnswered: true })
+			))
 		}));
 	}
 
-	handleRegistrantSelect(registrant) {
-		this.setState(({ edit }) => {
-			const isSameRegistrant = edit && edit.id === registrant.id;
-			return {
-				edit: isSameRegistrant ? null : registrant,
-				mode: isSameRegistrant ? 'add' : 'edit',
-			};
-		})
+	render() {
+		const { memes } = this.state;
+		return (
+			<div className="card-columns">
+				{
+					memes
+						.filter(meme => meme.isLoss !== meme.answer)
+						.map(meme => (
+							<Meme
+								key={meme.src}
+								src={meme.src}
+								caption={meme.caption}
+								isLoss={meme.isLoss}
+								answer={meme.answer}
+								lastAnswered={meme.lastAnswered}
+								onAnswer={ this.answer }
+								onWrong={ this.revertAnswer }
+							/>
+					))
+				}
+			</div>
+		)
+	}
+}
+
+class Meme extends React.Component {
+	constructor() {
+		super();
+		this.state = {
+			wrong: 0
+		}
+	}
+
+	componentWillMount() {
+		console.log('componentWillMount');
+	}
+
+	componentDidMount() {
+		console.log('componentDidMount');
+	}
+
+	componentWillReceiveProps(props) {
+		console.log('componentWillReceiveProps');
+		if (props.lastAnswered && typeof props.answer === 'boolean' && props.answer !== props.isLoss) {
+			window.alert('Incorrect!');
+			this.setState(({ wrong }) => ({
+				wrong: wrong + 1
+			}));
+		}
+	}
+
+	componentDidUpdate() {
+		console.log('componentDidUpdate');
+	}
+
+	componentWillUnmount() {
+		console.log('componentWillUnmount');
+		window.alert('Correct!');
 	}
 
 	render() {
-		const { images } = this.props;
-		const { registrants, add, mode, edit, query } = this.state;
-		const filteredRegistrants = filterRegistrants(registrants, query);
-		const isEdit = mode === 'edit';
-
+		const { src, isLoss, onAnswer } = this.props;
+		const { wrong } = this.state;
 		return (
-			<div className="row">
-				<div className="col-md-7 mb-3 order-1 order-md-0">
-					<RegistrantList
-						selectedRegistrant={ edit }
-						onFieldChange={ this.handleFieldChange }
-						onSelect={ this.handleRegistrantSelect }
-						registrants={ filteredRegistrants }
-					/>
+			<figure className="card">
+				<img src={ src } alt={ src } className="card-img"/>
+				<figcaption className="card-body">
+					<p>Is this loss????</p>
+					<small>
+						Incorrect tries: { wrong }
+					</small>
+				</figcaption>
+				<div className="card-footer">
+					<div className="row">
+						<div className="col-6">
+							<button className="btn btn-success btn-block" type="button" onClick={ () => onAnswer({ src, isLoss, answer: true }) }>Yes</button>
+						</div>
+						<div className="col-6">
+							<button className="btn btn-danger btn-block" type="button" onClick={ () => onAnswer({ src, isLoss, answer: false }) }>No</button>
+						</div>
+					</div>
 				</div>
-				<div className="col-md-5 mb-3 order-0 order-md-1">
-					<RegistrationForm
-						images={ images }
-						mode={ mode }
-						name={ isEdit ? edit.name : add.name }
-						email={ isEdit ? edit.email : add.email }
-						phone={ isEdit ? edit.phone : add.phone }
-						image={ isEdit ? edit.image : add.image }
-						onFieldChange={ this.handleFieldChange }
-						onDelete={ this.deleteRegistrant }
-						onSubmit={ this.commitRegistrant }
-					/>
-				</div>
-			</div>
+			</figure>
 		);
 	}
 }
@@ -284,12 +147,7 @@ const App = (
 	<React.Fragment>
 		<div className="my-5">
 			<div className="container">
-				<h1>Henlo</h1>
-			</div>
-		</div>
-		<div className="my-5">
-			<div className="container">
-				<Registration images={ IMAGES }/>
+				<MemeWrapper memes={ MEMES }/>
 			</div>
 		</div>
 	</React.Fragment>
