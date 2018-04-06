@@ -7,25 +7,18 @@
 <body>
 <div class="my-5">
 	<div class="container">
-		<h1>React Workshop 2018</h1>
-	</div>
-</div>
-<div class="my-5">
-	<div class="container">
 		<nav>
-			<ul class="list-unstyled row"><% for(let i = 1; i < chapters.length; i += 1) { %>
-				<li class="col">
-					<a class="card my-2" href="<%= chapters[i] %>/index.html">
-            <span class="card-header">
-              Chapter <%= i %>
-            </span>
-						<span class="card-body">
-              Click here
-            </span>
-					</a>
-				</li>
+			<div><% for(let i = 1; i < chapters.length; i += 1) { %>
+				<a class="card my-3" href="<%= chapters[i].id %>/index.html">
+					<span class="card-header">
+						Chapter <%= i %>
+					</span>
+					<span class="card-body">
+						<span class="card-title"><%= chapters[i].title %></span>
+					</span>
+				</a>
 				<% } %>
-			</ul>
+			</div>
 		</nav>
 	</div>
 </div>

@@ -1,8 +1,8 @@
 import React from 'react';
-import BIRD_SRC from '../chapter-02/assets/bird.jpeg';
-import LIZARD_SRC from '../chapter-02/assets/lizard.png';
-import PEACH_SRC from '../chapter-02/assets/peach.png';
-import RABBIT_SRC from '../chapter-02/assets/rabbit.png';
+import BIRD_SRC from '../02/assets/bird.jpeg';
+import LIZARD_SRC from '../02/assets/lizard.png';
+import PEACH_SRC from '../02/assets/peach.png';
+import RABBIT_SRC from '../02/assets/rabbit.png';
 
 function HenloImage({ src, caption }) {
 	return (
@@ -43,14 +43,10 @@ const App = (
 		</div>
 		<div className="my-5">
 			<div className="container">
-				<div className="row">
+				<div className="card-columns">
 					{
 						IMAGES.map(image => (
-							<div className="col-6">
-								<div className="my-2">
-									<HenloImage src={image.src} caption={image.caption} />
-								</div>
-							</div>
+							<HenloImage key={image.src} src={image.src} caption={image.caption} />
 						))
 					}
 				</div>

@@ -24,27 +24,11 @@ const App = (
 		</div>
 		<div className="my-5">
 			<div className="container">
-				<div className="row">
-					<div className="col-6">
-						<div className="my-2">
-							<HenloImage src={BIRD_SRC} caption="Bird" />
-						</div>
-					</div>
-					<div className="col-6">
-						<div className="my-2">
-							<HenloImage src={LIZARD_SRC} caption="Lizard" />
-						</div>
-					</div>
-					<div className="col-6">
-						<div className="my-2">
-							<HenloImage src={PEACH_SRC} caption="Peach" />
-						</div>
-					</div>
-					<div className="col-6">
-						<div className="my-2">
-							<HenloImage src={RABBIT_SRC} caption="Rabbit" />
-						</div>
-					</div>
+				<div className="card-columns">
+					<HenloImage src={BIRD_SRC} caption="Bird" />
+					<HenloImage src={LIZARD_SRC} caption="Lizard" />
+					<HenloImage src={PEACH_SRC} caption="Peach" />
+					<HenloImage src={RABBIT_SRC} caption="Rabbit" />
 				</div>
 			</div>
 		</div>

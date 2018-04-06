@@ -5,12 +5,9 @@ const App = (
 	<React.Fragment>
 		<div className="my-5">
 			<div className="container">
-				<h1>Hello&hellip;World</h1>
-			</div>
-		</div>
-		<div className="my-5">
-			<div className="container">
-				<img src={HELLO_WORLD_SRC} alt="Hello world" className="img-fluid" />
+				<div className="mx-auto w-100" style={{ maxWidth: 500 }}>
+					<img src={HELLO_WORLD_SRC} alt="Hello world" className="img-fluid" />
+				</div>
 			</div>
 		</div>
 	</React.Fragment>
