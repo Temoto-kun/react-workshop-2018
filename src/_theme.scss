@@ -1,4 +1,10 @@
+@font-face {
+	font-family: 'Bebas Kai';
+	src: url('BebasKai-Regular.otf') format('opentype');
+}
+
 $font-size-root: 14px;
+$font-family-sans-serif: Roboto, sans-serif;
 
 $spacer: 1rem * (12 / 14);
 $body-bg: #333;
@@ -7,4 +13,5 @@ $table-hover-bg: #212121;
 $card-hover-bg: $table-hover-bg;
 $card-bg: #282828;
 $card-cap-bg: #222;
-$headings-font-weight: 300;
+$headings-font-weight: 400;
+$headings-font-family: 'Bebas Kai', Roboto, sans-serif;

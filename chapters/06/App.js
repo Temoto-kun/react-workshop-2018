@@ -1,5 +1,7 @@
 import React from 'react';
 import BIRD_SRC from '../02/assets/bird.jpeg';
+import BIRD2_SRC from '../02/assets/bird2.png';
+import DOG_SRC from '../02/assets/dog.jpg';
 import LIZARD_SRC from '../02/assets/lizard.png';
 import PEACH_SRC from '../02/assets/peach.png';
 import RABBIT_SRC from '../02/assets/rabbit.png';
@@ -8,6 +10,14 @@ const IMAGES = [
 	{
 		src: BIRD_SRC,
 		caption: 'Bird',
+	},
+	{
+		src: BIRD2_SRC,
+		caption: 'Another Bird',
+	},
+	{
+		src: DOG_SRC,
+		caption: 'Dog',
 	},
 	{
 		src: LIZARD_SRC,
@@ -282,11 +292,6 @@ class Registration extends React.Component {
 
 const App = (
 	<React.Fragment>
-		<div className="my-5">
-			<div className="container">
-				<h1>Henlo</h1>
-			</div>
-		</div>
 		<div className="my-5">
 			<div className="container">
 				<Registration images={ IMAGES }/>

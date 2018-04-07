@@ -1,5 +1,7 @@
 import React from 'react';
 import BIRD_SRC from './assets/bird.jpeg';
+import BIRD2_SRC from './assets/bird2.png';
+import DOG_SRC from './assets/dog.jpg';
 import LIZARD_SRC from './assets/lizard.png';
 import PEACH_SRC from './assets/peach.png';
 import RABBIT_SRC from './assets/rabbit.png';
@@ -26,6 +28,8 @@ const App = (
 			<div className="container">
 				<div className="card-columns">
 					<HenloImage src={BIRD_SRC} caption="Bird" />
+					<HenloImage src={BIRD2_SRC} caption="Another Bird" />
+					<HenloImage src={DOG_SRC} caption="Dog" />
 					<HenloImage src={LIZARD_SRC} caption="Lizard" />
 					<HenloImage src={PEACH_SRC} caption="Peach" />
 					<HenloImage src={RABBIT_SRC} caption="Rabbit" />

@@ -1,28 +1,3 @@
 @import 'theme';
 @import '~bootstrap/scss/bootstrap';
 @import 'overrides';
-
-:root {
-	font-size: $font-size-root;
-}
-
-html {
-	background-color: $body-bg;
-	color: $body-color;
-	font-family: $font-family-base;
-}
-
-head {
-	display: block !important;
-	padding: $spacer * 3 0;
-	background-color: #181818;
-	text-align: center;
-}
-
-title {
-	display: block !important;
-	color: inherit;
-	font: inherit;
-	font-weight: $font-weight-light;
-	font-size: 3rem;
-}

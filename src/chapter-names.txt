@@ -4,3 +4,5 @@ Repeating Components
 Adding State to Components
 Component Lifecycle
 Forms
+Higher-order Components
+HOCs with Parameters

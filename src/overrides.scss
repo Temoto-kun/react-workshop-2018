@@ -1,3 +1,39 @@
+:root {
+	font-size: $font-size-root;
+}
+
+html {
+	background-color: $body-bg;
+	color: $body-color;
+	font-family: $font-family-base;
+	font-weight: $font-weight-normal;
+	line-height: $line-height-base;
+}
+
+head {
+	display: block !important;
+	padding: $spacer * 3 0;
+	background-color: #181818;
+	text-align: center;
+}
+
+title {
+	display: block !important;
+	color: inherit;
+	font: inherit;
+	font-family: $headings-font-family;
+	font-weight: $font-weight-light;
+	font-size: 3rem;
+}
+
+body {
+	background-color: inherit;
+	color: inherit;
+	font: inherit;
+	line-height: inherit;
+}
+
+
 .card-header {
 	background-color: transparent;
 	border-bottom: 0;
@@ -14,6 +50,7 @@ a.card:hover {
 }
 
 .card-title {
+	font: inherit;
 	font-size: 1rem;
 	text-transform: uppercase;
 	font-weight: $font-weight-bold;
@@ -25,4 +62,8 @@ a.card:hover {
 
 .card-header {
 	padding-bottom: 0;
+}
+
+label {
+	font-size: 0.85rem;
 }

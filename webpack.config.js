@@ -39,7 +39,7 @@ module.exports = chapters
 						use: [ 'style-loader', 'css-loader' ]
 					},
 					{
-						test: /\.(gif|jpe?g|png)$/,
+						test: /\.(gif|jpe?g|png|otf)$/,
 						use: [ 'file-loader' ]
 					}
 				],
