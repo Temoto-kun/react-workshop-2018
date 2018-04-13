@@ -1,42 +1,12 @@
 import React from 'react';
-import BIRD_SRC from '../02/assets/bird.jpeg';
-import BIRD2_SRC from '../02/assets/bird2.png';
-import DOG_SRC from '../02/assets/dog.jpg';
-import LIZARD_SRC from '../02/assets/lizard.png';
-import PEACH_SRC from '../02/assets/peach.png';
-import RABBIT_SRC from '../02/assets/rabbit.png';
+import { IMAGES } from '../03/App';
 
-const IMAGES = [
-	{
-		src: BIRD_SRC,
-		caption: 'Bird',
-	},
-	{
-		src: BIRD2_SRC,
-		caption: 'Another Bird',
-	},
-	{
-		src: DOG_SRC,
-		caption: 'Dog',
-	},
-	{
-		src: LIZARD_SRC,
-		caption: 'Lizard',
-	},
-	{
-		src: PEACH_SRC,
-		caption: 'Peach',
-	},
-	{
-		src: RABBIT_SRC,
-		caption: 'Rabbit',
-	}
-];
-
+// We define utility functions here.
 function getRandomNumber(min, max) {
 	return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Check if all values are the same.
 function checkForWin(values) {
 	if (values.length < 1) {
 		return false;
@@ -53,6 +23,7 @@ function checkForWin(values) {
 	), true);
 }
 
+// We define our first stateful component.
 class SlotMachine extends React.Component {
 	constructor({ resultCount = 3 }) {
 		super();
@@ -62,12 +33,17 @@ class SlotMachine extends React.Component {
 			results.push(0);
 		}
 
+		// We specify the initial state of our component.
+		// It is advised to add all the state variables that we will be using
+		// for the rest of the component's lifetime. This is to aid debugging.
 		this.state = {
 			results,
-			rolled: false,
+			rolled: false, // Has user rolled at least once?
 		};
 
-		this.spin = this.spin.bind(this); // (1)
+		// This is required for every method definition, as ES6 classes do not
+		// bind instance methods to their respective instances.
+		this.spin = this.spin.bind(this);
 	}
 
 	spin() {
@@ -106,6 +82,7 @@ class SlotMachine extends React.Component {
 						}
 					</div>
 					<div className="col-3 text-right">
+						{ /* Note that we are passing this.spin() as the function itself for onClick */ }
 						<button className="btn btn-primary btn-block btn-lg" type="button" onClick={ this.spin }>Spin</button>
 					</div>
 				</div>

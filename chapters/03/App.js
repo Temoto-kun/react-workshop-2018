@@ -6,17 +6,12 @@ import LIZARD_SRC from '../02/assets/lizard.png';
 import PEACH_SRC from '../02/assets/peach.png';
 import RABBIT_SRC from '../02/assets/rabbit.png';
 
-function HenloImage({ src, caption }) {
-	return (
-		<figure className="card">
-			<img className="card-img-top" src={src} alt={caption}/>
-			<figcaption className="card-body">
-				<span className="card-title">{ caption }</span>
-			</figcaption>
-		</figure>
-	);
-}
+// Let's reuse the HenloImage component from the previous chapter.
+// In the presentation, the component is also defined here,
+// but the structure is the same.
+import { HenloImage } from '../02/App';
 
+// We define the list of images now.
 const IMAGES = [
 	{
 		src: BIRD_SRC,
@@ -55,7 +50,12 @@ const App = (
 			<div className="container">
 				<div className="card-columns">
 					{
+						/* Let's map each image datum to render to each HenloImage component. */
 						IMAGES.map(image => (
+							/*
+							 * Notice the additional "key" prop. It is advised by React to add
+							 * this prop to each element/component for every .map() for tracking.
+							 */
 							<HenloImage key={image.src} src={image.src} caption={image.caption} />
 						))
 					}
@@ -66,3 +66,6 @@ const App = (
 );
 
 export default App;
+
+// Let's export the images now for later chapters.
+export { IMAGES };

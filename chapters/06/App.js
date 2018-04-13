@@ -1,171 +1,8 @@
 import React from 'react';
-import BIRD_SRC from '../02/assets/bird.jpeg';
-import BIRD2_SRC from '../02/assets/bird2.png';
-import DOG_SRC from '../02/assets/dog.jpg';
-import LIZARD_SRC from '../02/assets/lizard.png';
-import PEACH_SRC from '../02/assets/peach.png';
-import RABBIT_SRC from '../02/assets/rabbit.png';
-
-const IMAGES = [
-	{
-		src: BIRD_SRC,
-		caption: 'Bird',
-	},
-	{
-		src: BIRD2_SRC,
-		caption: 'Another Bird',
-	},
-	{
-		src: DOG_SRC,
-		caption: 'Dog',
-	},
-	{
-		src: LIZARD_SRC,
-		caption: 'Lizard',
-	},
-	{
-		src: PEACH_SRC,
-		caption: 'Peach',
-	},
-	{
-		src: RABBIT_SRC,
-		caption: 'Rabbit',
-	}
-];
-
-function filterRegistrants(registrants, query) {
-	query = query.toLowerCase();
-
-	if (query.trim().length < 1) {
-		return registrants;
-	}
-
-	return registrants.filter(registrant => (
-		registrant.name.toLowerCase().includes(query) ||
-			registrant.email.toLowerCase().includes(query) ||
-			registrant.phone.toLowerCase().includes(query)
-	));
-}
-
-function TextBox({ id, name, label, type = 'text', value, onChange }) {
-	return (
-		<React.Fragment>
-			<label htmlFor={id}>{label}</label>
-			<input
-				id={id}
-				name={name}
-				value={value}
-				className="form-control"
-				onChange={ (e) => {
-					onChange({ name, value: e.target.value });
-				} }
-				placeholder={label}
-				type={type}
-			/>
-		</React.Fragment>
-	)
-}
-
-function RegistrantList({ onSearch, query, registrants, selectedRegistrant, onFieldChange, onSelect }) {
-	return (
-		<React.Fragment>
-			<form className="mb-3" onSubmit={ onSearch }>
-				<div className="card">
-					<div className="card-header">
-						<h2 className="card-title">Search</h2>
-					</div>
-					<div className="card-body">
-						<TextBox id="query" name="query" value={ query } label="Query" onChange={ onFieldChange }/>
-					</div>
-				</div>
-			</form>
-			{
-				registrants.length > 0 ?
-					<div className="card-columns">
-						{
-							registrants.map(registrant => (
-								<div
-									className={ selectedRegistrant && registrant.id === selectedRegistrant.id ? 'card border-primary' : 'card' }
-									key={registrant.id}
-									onClick={ () => { onSelect(registrant) } }
-								>
-									<img src={ registrant.image } alt={ registrant.name } className="card-img-top"/>
-									<div className="card-body">
-										<div className="card-title">
-											{ registrant.name }
-										</div>
-										<div className="card-text">
-											<small>
-												<dl>
-													<dt>Email</dt>
-													<dd>{ registrant.email }</dd>
-													<dt>Phone Number</dt>
-													<dd>{ registrant.phone }</dd>
-												</dl>
-											</small>
-										</div>
-									</div>
-								</div>
-							))
-						}
-					</div> :
-					<div className="text-center p-5">
-						<p>No registrants found.</p>
-					</div>
-			}
-		</React.Fragment>
-	)
-}
-
-function ImageSelector({ images, name, label, id, value, onChange }) {
-	return (
-		<React.Fragment>
-			<label htmlFor={ id }>{ label }</label>
-			{
-				images.map(image => (
-					<label id={ id } key={ image.src }>
-						<figure className={ value === image.src ? 'card position-relative border-primary' : 'card position-relative' }>
-							<img className="card-img" src={image.src} alt={image.caption}/>
-							<input type="radio" name={name} checked={ value === image.src } className="position-absolute"
-										 onClick={ () => onChange({ name, value: image.src }) }
-										 style={{ top: 15, right: 15 }}/>
-						</figure>
-					</label>
-				))
-			}
-		</React.Fragment>
-	);
-}
-
-function RegistrationForm({ images, name, mode, email, phone, image, onFieldChange, onDelete, onSubmit }) {
-	const isEdit = mode === 'edit';
-	return (
-		<form onSubmit={ onSubmit }>
-			<div className="card">
-				<div className="card-header">
-					<h2 className="card-title">{ isEdit ? 'Edit Existing Registrant' : 'Add New Registrant' }</h2>
-				</div>
-				<div className="card-body">
-					<div className="form-group">
-						<TextBox id="name" name="name" value={ name } onChange={ onFieldChange } label="Name" />
-					</div>
-					<div className="form-group">
-						<TextBox id="email" name="email" value={ email } onChange={ onFieldChange } label="Email" type="email" />
-					</div>
-					<div className="form-group">
-						<TextBox id="phone" name="phone" value={ phone } onChange={ onFieldChange } label="Phone number" type="tel" />
-					</div>
-					<ImageSelector id="image" name="image" label="Image" onChange={ onFieldChange } images={ images } value={ image }/>
-				</div>
-				<div className="card-footer text-right">
-					{ isEdit && <button className="btn btn-danger" type="reset" onClick={ onDelete }>Delete</button> }
-					{ ' ' }
-					<button className="btn btn-primary" type="submit">{ isEdit ? 'Update' : 'Add' }</button>
-				</div>
-			</div>
-		</form>
-	);
-}
+import { IMAGES } from '../03/App';
+import RegistrantList from './RegistrantList';
+import RegistrationForm from './RegistrationForm';
+import filterRegistrants from './filterRegistrants';
 
 class Registration extends React.Component {
 	constructor() {
@@ -238,6 +75,10 @@ class Registration extends React.Component {
 	}
 
 	handleFieldChange(field) {
+		if (field.name === 'query') {
+			this.setState({ query: field.value });
+			return;
+		}
 		this.setState(({ mode, ...state }) => ({
 			[mode]: {
 				...state[mode],
@@ -290,6 +131,11 @@ class Registration extends React.Component {
 	}
 }
 
+// Notice we are putting smart, stateful components as the topmost component
+// in our app. This is to establish a single source of truth across the app,
+// for data will descend from the stateful components to stateless components.
+
+// See the other source files for the implementations of the stateless components.
 const App = (
 	<React.Fragment>
 		<div className="my-5">

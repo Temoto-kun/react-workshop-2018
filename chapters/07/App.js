@@ -1,26 +1,10 @@
 import React from 'react';
 import DANIEL_SRC from './assets/daniel.jpg';
 import COOLER_DANIEL_SRC from './assets/cooler-daniel.jpg';
+import Person from './Person';
+import cooler from './cooler';
 
-function cooler(Component) {
-	return function CoolerComponent(props) {
-		return (
-			<Component {...props} name={ `The cooler ${props.name}` } style={{ border: '12px double green' }}/>
-		);
-	}
-}
-
-function Person({ name, image, ...props }) {
-	return (
-		<figure className="card" { ...props }>
-			<img className="card-img-top" src={ image } alt={ name } />
-			<figcaption className="card-body">
-				<p className="card-text">{ name }</p>
-			</figcaption>
-		</figure>
-	);
-}
-
+// Extend the bland, simple Person to be a cooler, more rad CoolerPerson.
 const CoolerPerson = cooler(Person);
 
 const App = (
